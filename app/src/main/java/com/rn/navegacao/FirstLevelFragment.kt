@@ -20,13 +20,13 @@ class FirstLevelFragment : Fragment() {
             getString(R.string.option_tab),
             TabsActivity::class.java
         )
-       // actions.put(
-            //getString(R.string.option_bottom),
-           // BottomNavActivity::class.java
-       // )
-       // actions.put(
-          //  getString(R.string.option_pager),
-           // PagerActivity::class.java
+        actions.put(
+            getString(R.string.option_bottom),
+            BottomNavActivity::class.java
+       )
+        //actions.put(
+          // getString(R.string.option_pager),
+          // PagerActivity::class.java
        // )
     }
 
