@@ -3,9 +3,11 @@ package com.rn.navegacao
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
+import android.widget.FrameLayout
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.widget.Toolbar
 import androidx.core.view.GravityCompat
+import androidx.fragment.app.FragmentTransaction
 import com.rn.navegacao.databinding.ActivityMainBinding
 
 
@@ -58,13 +60,16 @@ class MainActivity : AppCompatActivity() {
         menuItem.isChecked = true
         binding.drawerLayout.closeDrawers()
         val title = menuItem.title.toString()
-        if(supportFragmentManager.findFragmentByTag(title) == null){
-            val firstLevelFragment = FirstLevelFragment.newInstance(title)
-            supportFragmentManager
-                .beginTransaction()
-                .replace(R.id.content, firstLevelFragment)
-                .commit()
+        val fragment = FirstLevelFragment.newInstance(title)
+        val transaction = supportFragmentManager
+            .beginTransaction()
+            .replace(R.id.content, fragment, title)
+            .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+        val content = findViewById<FrameLayout>(R.id.content)
+        if (content.childCount > 0) { // não adicionamos o primeiro fragment na backstack
+            transaction.addToBackStack(null)
         }
+        transaction.commit()
     }
 
 
